@@ -9,7 +9,7 @@ namespace SO.SMachine
     public class StateMachineSM : MonoBehaviour
     {
         public GameStateSMSO CurrentGameState;
-        public boolSO IsGamePused;
+        public BoolSO IsGamePused;
         private GameStateSM RuningGameState = null;
         private bool _IsGamePaused;
         private void Awake()
