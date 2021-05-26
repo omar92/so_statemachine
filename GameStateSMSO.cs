@@ -21,6 +21,10 @@ namespace SO.SMachine
                 catch (Exception) { }
             }
         }
+        public  void SetState(GameStateSM value)
+        {
+            Value = value;
+        }
 
         public override string ToString(string format, IFormatProvider formatProvider = null)
         {

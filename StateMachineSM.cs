@@ -10,6 +10,7 @@ namespace SO.SMachine
     {
         public GameStateSMSO CurrentGameState;
         public BoolSO IsGamePused;
+        public GameStateSM startState;
         private GameStateSM RuningGameState = null;
         private bool _IsGamePaused;
         private void Awake()
@@ -19,6 +20,11 @@ namespace SO.SMachine
             _IsGamePaused = IsGamePused.Value;
         }
 
+        private void Start()
+        {
+            if(startState!=null)
+              CurrentGameState.Value = startState;
+        }
 
         private void OnDestroy()
         {
@@ -30,7 +36,7 @@ namespace SO.SMachine
         {
             if (RuningGameState != null) RuningGameState.OnExit();
             RuningGameState = CurrentGameState.Value;
-            RuningGameState.OnEnter();
+            if (RuningGameState != null) RuningGameState.OnEnter(); else Debuger.LogWarning("Open Null state");
         }
         private void OnGamePauseChange(object sender, EventArgs e)
         {

@@ -10,6 +10,7 @@ namespace SO.SMachine
     public class gameStateListener
     {
         public GameStateSM GameState;
+        [Tooltip("must be enabled at first")]
         public bool listenWhenDisabled;
         public UnityEvent OnEnter;
         public UnityEvent OnPause;
