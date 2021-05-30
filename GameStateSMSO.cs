@@ -23,7 +23,7 @@ namespace SO.SMachine
         }
         public  void SetState(GameStateSM value)
         {
-            Value = value;
+            SetValue(value);
         }
 
         public override string ToString(string format, IFormatProvider formatProvider = null)

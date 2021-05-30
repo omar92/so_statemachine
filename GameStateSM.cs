@@ -10,7 +10,9 @@ namespace SO.SMachine
     public class GameStateSM : ScriptableObject
     {
         public List<gameStateListener> listeners = new List<gameStateListener>();
-        
+        public SMachine.GameStateSMSO statemachine;
+
+
         [TextArea]
         [Tooltip("What does this GameState do")]
         public string GameStateDescription = "[What does this GameState do]";
@@ -61,6 +63,14 @@ namespace SO.SMachine
             {
                 listeners[i].OnUnPause.Invoke();
             }
+        }
+
+        public void Switch()
+        {
+            if (statemachine != null)
+                statemachine.SetState(this);
+            else
+                Debuger.LogError("please set parent statemachine first for "+this.name);
         }
     }
 }

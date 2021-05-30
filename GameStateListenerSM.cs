@@ -21,9 +21,52 @@ namespace SO.SMachine
         public string GameStateBehaviour;
         internal GameStateListenerSM source;
     }
+
     public class GameStateListenerSM : MonoBehaviour
     {
+
+        static Dictionary<int, GameStateListenerSM> inistances = null;
+
         public List<gameStateListener> StatesListeners = new List<gameStateListener>();
+
+        GameStateListenerSM()
+        {
+            if (inistances == null) inistances = new Dictionary<int, GameStateListenerSM>();
+            try
+            {
+                if (Application.isPlaying)
+                    inistances.Add(this.GetInstanceID(), this);
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        static void OnLoad()
+        {
+            Z.InvokeEndOfFrame(() =>
+            {
+                foreach (var inistance in inistances.Values)
+                {
+                    for (int i = 0; i < inistance.StatesListeners.Count; i++)
+                    {
+                        try
+                        {
+                            if (inistance.StatesListeners[i].listenWhenDisabled == true)
+                            {
+                                inistance.StatesListeners[i].source = inistance;
+                                inistance.StatesListeners[i].GameState.RegisterListener(inistance.StatesListeners[i]);
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            Debuger.LogError(e.Message);
+                        }
+                    }
+                }
+            });
+        }
 
         private void OnEnable()
         {
