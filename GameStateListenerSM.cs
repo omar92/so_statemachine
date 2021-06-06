@@ -36,6 +36,8 @@ namespace SO.SMachine
             {
                 if (Application.isPlaying)
                     inistances.Add(this.GetInstanceID(), this);
+                else
+                    inistances = null;
             }
             catch (Exception)
             {

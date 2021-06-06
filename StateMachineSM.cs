@@ -22,8 +22,8 @@ namespace SO.SMachine
 
         private void Start()
         {
-            if(startState!=null)
-              CurrentGameState.Value = startState;
+            if (startState != null)
+                CurrentGameState.Value = startState;
         }
 
         private void OnDestroy()
@@ -34,13 +34,20 @@ namespace SO.SMachine
 
         private void OnStateChange(object sender, EventArgs e)
         {
-            if (RuningGameState != null) RuningGameState.OnExit();
-            RuningGameState = CurrentGameState.Value;
-            if (RuningGameState != null) RuningGameState.OnEnter(); else Debuger.LogWarning("Open Null state");
+            Z.InvokeEndOfFrame(() =>
+            {
+                if (RuningGameState != null) RuningGameState.OnExit();
+                RuningGameState = null;
+                Z.InvokeEndOfFrame(() =>
+                {
+                    RuningGameState = CurrentGameState.Value;
+                    if (RuningGameState != null) RuningGameState.OnEnter(); else Debuger.LogWarning("Open Null state");
+                });
+            });
         }
         private void OnGamePauseChange(object sender, EventArgs e)
         {
-           if(_IsGamePaused != IsGamePused.Value)//check that Value is inverted
+            if (_IsGamePaused != IsGamePused.Value)//check that Value is inverted
             {
                 _IsGamePaused = IsGamePused.Value;
                 if (_IsGamePaused)
@@ -52,7 +59,7 @@ namespace SO.SMachine
                     RuningGameState.OnUnPause();
                 }
             }
-            
+
         }
     }
 }

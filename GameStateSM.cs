@@ -9,6 +9,8 @@ namespace SO.SMachine
     [CreateAssetMenu(fileName = "GameState", menuName = "SM/GameState")]
     public class GameStateSM : ScriptableObject
     {
+    
+
         public List<gameStateListener> listeners = new List<gameStateListener>();
         public SMachine.GameStateSMSO statemachine;
 
@@ -16,6 +18,13 @@ namespace SO.SMachine
         [TextArea]
         [Tooltip("What does this GameState do")]
         public string GameStateDescription = "[What does this GameState do]";
+
+
+        public void OnAfterDeserialize()
+        {
+            listeners = new List<gameStateListener>();
+        }
+        public void OnBeforeSerialize() { listeners = null; }
 
         public void RegisterListener(gameStateListener listener)
         {
