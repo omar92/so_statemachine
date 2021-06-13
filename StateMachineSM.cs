@@ -44,8 +44,7 @@ namespace SO.SMachine
                 Z.InvokeEndOfFrame(() =>
                 {
                     RuningGameState = CurrentGameState.Value;
-                    if (RuningGameState != null) RuningGameState.OnEnter(); else Debuger.LogWarning("Open Null state");
-                    onSwitchState.Invoke();
+                    if (RuningGameState != null) { RuningGameState.OnEnter(); onSwitchState.Invoke(); } else Debuger.LogWarning("Open Null state");
                 });
             });
         }
