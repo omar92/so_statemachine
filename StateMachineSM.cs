@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SO;
+using UnityEngine.Events;
+
 namespace SO.SMachine
 {
     //[CreateAssetMenu(fileName = "GameState", menuName = "SM/Machine")]
@@ -12,6 +14,7 @@ namespace SO.SMachine
         public BoolSO IsGamePused;
         public GameStateSM startState;
         private GameStateSM RuningGameState = null;
+        public UnityEvent onSwitchState;
         private bool _IsGamePaused;
         private void Awake()
         {
@@ -42,6 +45,7 @@ namespace SO.SMachine
                 {
                     RuningGameState = CurrentGameState.Value;
                     if (RuningGameState != null) RuningGameState.OnEnter(); else Debuger.LogWarning("Open Null state");
+                    onSwitchState.Invoke();
                 });
             });
         }
