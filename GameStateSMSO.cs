@@ -25,7 +25,10 @@ namespace SO.SMachine
         {
             SetValue(value);
         }
-
+        public void ForceSetState(GameStateSM value)
+        {
+            SetValue(value,true);
+        }
         public override string ToString(string format, IFormatProvider formatProvider = null)
         {
             if (String.IsNullOrEmpty(format)) format = "N";
