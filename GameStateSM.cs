@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
+using NaughtyAttributes;
 namespace SO.SMachine
 {
     [CreateAssetMenu(fileName = "GameState", menuName = "SM/GameState")]
@@ -72,6 +72,7 @@ namespace SO.SMachine
             }
         }
 
+        [Button("Switch")]
         public void Switch()
         {
             _Switch(false);
@@ -81,6 +82,7 @@ namespace SO.SMachine
             _Switch(true);
         }
 
+     
         private void _Switch(bool isForced)
         {
             if (statemachine != null)

@@ -44,31 +44,31 @@ namespace SO.SMachine
             }
         }
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-        static void OnLoad()
-        {
-            Z.InvokeEndOfFrame(() =>
-            {
-                foreach (var inistance in inistances.Values)
-                {
-                    for (int i = 0; i < inistance.StatesListeners.Count; i++)
-                    {
-                        try
-                        {
-                            if (inistance.StatesListeners[i].listenWhenDisabled == true)
-                            {
-                                inistance.StatesListeners[i].source = inistance;
-                                inistance.StatesListeners[i].GameState.RegisterListener(inistance.StatesListeners[i]);
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            Debuger.LogError(e.Message);
-                        }
-                    }
-                }
-            });
-        }
+        //[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        //static void OnLoad()
+        //{
+        //    Z.InvokeEndOfFrame(() =>
+        //    {
+        //        foreach (var inistance in inistances.Values)
+        //        {
+        //            for (int i = 0; i < inistance.StatesListeners.Count; i++)
+        //            {
+        //                try
+        //                {
+        //                    if (inistance.StatesListeners[i].listenWhenDisabled == true)
+        //                    {
+        //                        inistance.StatesListeners[i].source = inistance;
+        //                        inistance.StatesListeners[i].GameState.RegisterListener(inistance.StatesListeners[i]);
+        //                    }
+        //                }
+        //                catch (Exception e)
+        //                {
+        //                    Debuger.LogError(e.Message);
+        //                }
+        //            }
+        //        }
+        //    });
+        //}
 
         private void OnEnable()
         {
