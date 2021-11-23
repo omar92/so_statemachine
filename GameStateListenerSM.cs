@@ -24,10 +24,12 @@ namespace SO.SMachine
 
     public class GameStateListenerSM : MonoBehaviour
     {
-
         static Dictionary<int, GameStateListenerSM> inistances = null;
 
-        public List<gameStateListener> StatesListeners = new List<gameStateListener>();
+        [SerializeField] private UnityEvent Init;
+        [SerializeField] private List<gameStateListener> StatesListeners = new List<gameStateListener>();
+
+        private bool isInitialized;
 
         GameStateListenerSM()
         {
@@ -44,34 +46,9 @@ namespace SO.SMachine
             }
         }
 
-        //[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        //static void OnLoad()
-        //{
-        //    Z.InvokeEndOfFrame(() =>
-        //    {
-        //        foreach (var inistance in inistances.Values)
-        //        {
-        //            for (int i = 0; i < inistance.StatesListeners.Count; i++)
-        //            {
-        //                try
-        //                {
-        //                    if (inistance.StatesListeners[i].listenWhenDisabled == true)
-        //                    {
-        //                        inistance.StatesListeners[i].source = inistance;
-        //                        inistance.StatesListeners[i].GameState.RegisterListener(inistance.StatesListeners[i]);
-        //                    }
-        //                }
-        //                catch (Exception e)
-        //                {
-        //                    Debuger.LogError(e.Message);
-        //                }
-        //            }
-        //        }
-        //    });
-        //}
-
         private void OnEnable()
         {
+            if (!isInitialized) { Init.Invoke(); isInitialized = true; }
             for (int i = 0; i < StatesListeners.Count; i++)
             {
                 StatesListeners[i].source = this;
@@ -93,42 +70,5 @@ namespace SO.SMachine
                     StatesListeners[i].GameState.UnregisterListener(StatesListeners[i]);
             }
         }
-
-        //public void OnEnter(SMGameState GameState)
-        //{
-        //    for (int i = 0; i < StatesListeners.Count; i++)
-        //    {
-        //        if (StatesListeners[i].GameState == GameState)
-        //            StatesListeners[i].OnEnter.Invoke();
-        //    }
-        //}
-
-        //public void OnPause(SMGameState GameState)
-        //{
-        //    for (int i = 0; i < StatesListeners.Count; i++)
-        //    {
-        //        if (StatesListeners[i].GameState == GameState)
-        //            StatesListeners[i].OnPause.Invoke();
-        //    }
-        //}
-
-        //public void OnUnPause(SMGameState GameState)
-        //{
-        //    for (int i = 0; i < StatesListeners.Count; i++)
-        //    {
-        //        if (StatesListeners[i].GameState == GameState)
-        //            StatesListeners[i].OnUnPause.Invoke();
-        //    }
-        //}
-
-        //public void OnExit(SMGameState GameState)
-        //{
-        //    for (int i = 0; i < StatesListeners.Count; i++)
-        //    {
-        //        if (StatesListeners[i].GameState == GameState)
-        //            StatesListeners[i].OnExit.Invoke();
-        //    }
-        //}
-
     }
 }
