@@ -53,22 +53,36 @@ namespace SO.SMachine
             {
                 StatesListeners[i].source = this;
                 StatesListeners[i].GameState.RegisterListener(StatesListeners[i]);
+                StatesListeners[i].GameState.RegisterIListeners(GetComponentsInChildren<IStateListener>(true));
             }
         }
         private void OnDestroy()
         {
             for (int i = 0; i < StatesListeners.Count; i++)
             {
-                StatesListeners[i].GameState.UnregisterListener(StatesListeners[i]);
+                UnRigester(i);
             }
         }
+
         private void OnDisable()
         {
             for (int i = 0; i < StatesListeners.Count; i++)
             {
                 if (StatesListeners[i].listenWhenDisabled == false)
-                    StatesListeners[i].GameState.UnregisterListener(StatesListeners[i]);
+                    UnRigester(i);
             }
         }
+
+        private void UnRigester(int i)
+        {
+            StatesListeners[i].GameState.UnregisterListener(StatesListeners[i]);
+            StatesListeners[i].GameState.UnregisterIListeners(GetComponentsInChildren<IStateListener>());
+        }
+    }
+
+    public interface IStateListener
+    {
+        void OnEnter(GameStateSM gameState);
+        void OnExit(GameStateSM gameState);
     }
 }

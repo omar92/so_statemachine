@@ -13,7 +13,7 @@ namespace SO.SMachine
 
         public List<gameStateListener> listeners = new List<gameStateListener>();
         public SMachine.GameStateSMSO statemachine;
-
+        List<IStateListener> iStateListner =new List<IStateListener>();
 
         [TextArea]
         [Tooltip("What does this GameState do")]
@@ -23,11 +23,13 @@ namespace SO.SMachine
         private void Awake()
         {
             listeners = new List<gameStateListener>();
+            iStateListner = new List<IStateListener>();
         }
 
         private void OnEnable()
         {
             listeners = new List<gameStateListener>();
+            iStateListner = new List<IStateListener>();
         }
 
         //  private void OnDestroy() { listeners = new List<gameStateListener>(); }
@@ -55,6 +57,13 @@ namespace SO.SMachine
             {
                 listeners[i].OnEnter.Invoke();
             }
+            Z.InvokeEndOfFrame(() =>
+            {
+                for (int i = 0; i < iStateListner.Count; i++)
+                {
+                    iStateListner[i].OnEnter(this);
+                }
+            });
         }
 
         internal void OnExit()
@@ -63,13 +72,19 @@ namespace SO.SMachine
             {
                 listeners[i].OnExit.Invoke();
             }
+            for (int i = 0; i < iStateListner.Count; i++)
+            {
+                iStateListner[i].OnExit(this);
+            }
         }
+
         internal void OnPause()
         {
             for (int i = 0; i < listeners.Count; i++)
             {
                 listeners[i].OnPause.Invoke();
             }
+
         }
 
         internal void OnUnPause()
@@ -85,6 +100,24 @@ namespace SO.SMachine
         {
             _Switch(false);
         }
+
+        internal void RegisterIListeners(IStateListener[] stateListeners)
+        {
+            for (int i = 0; i < stateListeners.Length; i++)
+            {
+                if (iStateListner.Contains(stateListeners[i])) continue;
+                iStateListner.Add(stateListeners[i]);
+            }
+        }
+        internal void UnregisterIListeners(IStateListener[] stateListeners)
+        {
+            for (int i = 0; i < stateListeners.Length; i++)
+            {
+                if (!iStateListner.Contains(stateListeners[i])) continue;
+                iStateListner.Remove(stateListeners[i]);
+            }
+        }
+
         public void ForceSwitch()
         {
             _Switch(true);
