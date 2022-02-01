@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using NaughtyAttributes;
+using UnityEngine.SceneManagement;
+
 namespace SO.SMachine
 {
     [CreateAssetMenu(fileName = "GameState", menuName = "SM/GameState")]
@@ -25,12 +27,21 @@ namespace SO.SMachine
             listeners = new List<gameStateListener>();
             iStateListner = new List<IStateListener>();
         }
-
+        
         private void OnEnable()
         {
             listeners = new List<gameStateListener>();
             iStateListner = new List<IStateListener>();
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
+
+        private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+        {
+            listeners = new List<gameStateListener>();
+            iStateListner = new List<IStateListener>();
+        }
+
+
 
         //  private void OnDestroy() { listeners = new List<gameStateListener>(); }
 

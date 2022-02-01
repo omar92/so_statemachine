@@ -48,13 +48,16 @@ namespace SO.SMachine
 
         private void OnEnable()
         {
-            if (!isInitialized) { Init.Invoke(); isInitialized = true; }
-            for (int i = 0; i < StatesListeners.Count; i++)
+            Z.InvokeEndOfFrame(() =>
             {
-                StatesListeners[i].source = this;
-                StatesListeners[i].GameState.RegisterListener(StatesListeners[i]);
-                StatesListeners[i].GameState.RegisterIListeners(GetComponentsInChildren<IStateListener>(true));
-            }
+                if (!isInitialized) { Init.Invoke(); isInitialized = true; }
+                for (int i = 0; i < StatesListeners.Count; i++)
+                {
+                    StatesListeners[i].source = this;
+                    StatesListeners[i].GameState.RegisterListener(StatesListeners[i]);
+                    StatesListeners[i].GameState.RegisterIListeners(GetComponentsInChildren<IStateListener>(true));
+                }
+            });
         }
         private void OnDestroy()
         {
