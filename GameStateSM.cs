@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using NaughtyAttributes;
 using UnityEngine.SceneManagement;
 
 namespace SO.SMachine
@@ -106,7 +105,6 @@ namespace SO.SMachine
             }
         }
 
-        [Button("Switch")]
         public void Switch()
         {
             _Switch(false);
