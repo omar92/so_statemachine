@@ -78,8 +78,14 @@ namespace SO.SMachine
 
         private void UnRigester(int i)
         {
-            StatesListeners[i].GameState.UnregisterListener(StatesListeners[i]);
-            StatesListeners[i].GameState.UnregisterIListeners(GetComponentsInChildren<IStateListener>());
+            try
+            {
+                StatesListeners[i].GameState.UnregisterListener(StatesListeners[i]);
+                StatesListeners[i].GameState.UnregisterIListeners(GetComponentsInChildren<IStateListener>());
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 
