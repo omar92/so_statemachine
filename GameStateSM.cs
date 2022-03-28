@@ -14,8 +14,8 @@ namespace SO.SMachine
 
         public List<gameStateListener> listeners = new List<gameStateListener>();
         public SMachine.GameStateSMSO statemachine;
-        List<IStateListener> iStateListner =new List<IStateListener>();
-
+        List<IStateListener> iStateListner = new List<IStateListener>();
+        bool isEntered = false;
         [TextArea]
         [Tooltip("What does this GameState do")]
         public string GameStateDescription = "[What does this GameState do]";
@@ -26,7 +26,7 @@ namespace SO.SMachine
             listeners = new List<gameStateListener>();
             iStateListner = new List<IStateListener>();
         }
-        
+
         private void OnEnable()
         {
             listeners = new List<gameStateListener>();
@@ -38,6 +38,7 @@ namespace SO.SMachine
         {
             listeners = new List<gameStateListener>();
             iStateListner = new List<IStateListener>();
+            isEntered = false;
         }
 
 
@@ -63,6 +64,7 @@ namespace SO.SMachine
 
         internal void OnEnter()
         {
+            isEntered = true;
             for (int i = 0; i < listeners.Count; i++)
             {
                 listeners[i].OnEnter.Invoke();
@@ -78,6 +80,7 @@ namespace SO.SMachine
 
         internal void OnExit()
         {
+            if (!isEntered) return;
             for (int i = 0; i < listeners.Count; i++)
             {
                 listeners[i].OnExit.Invoke();
@@ -132,7 +135,7 @@ namespace SO.SMachine
             _Switch(true);
         }
 
-     
+
         private void _Switch(bool isForced)
         {
             if (statemachine != null)
