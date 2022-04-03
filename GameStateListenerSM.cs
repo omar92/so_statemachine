@@ -55,7 +55,12 @@ namespace SO.SMachine
                 {
                     StatesListeners[i].source = this;
                     StatesListeners[i].GameState.RegisterListener(StatesListeners[i]);
-                    StatesListeners[i].GameState.RegisterIListeners(GetComponentsInChildren<IStateListener>(true));
+
+                    foreach (var stateListener in (GetComponentsInChildren<IStateListener>(true)))
+                    {
+                        if (this == ((MonoBehaviour)stateListener).gameObject.GetComponentInParent<GameStateListenerSM>())
+                            StatesListeners[i].GameState.RegisterIListener(stateListener);
+                    }
                 }
             });
         }

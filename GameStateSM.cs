@@ -117,18 +117,28 @@ namespace SO.SMachine
         {
             for (int i = 0; i < stateListeners.Length; i++)
             {
-                if (iStateListner.Contains(stateListeners[i])) continue;
-                iStateListner.Add(stateListeners[i]);
+                RegisterIListener(stateListeners[i]);
             }
         }
         internal void UnregisterIListeners(IStateListener[] stateListeners)
         {
             for (int i = 0; i < stateListeners.Length; i++)
             {
-                if (!iStateListner.Contains(stateListeners[i])) continue;
-                iStateListner.Remove(stateListeners[i]);
+                UnregisterIListener(stateListeners[i]);
             }
         }
+
+        internal void RegisterIListener(IStateListener stateListener)
+        {
+            if (iStateListner.Contains(stateListener)) return;
+            iStateListner.Add(stateListener);
+        }
+        internal void UnregisterIListener(IStateListener stateListener)
+        {
+            if (!iStateListner.Contains(stateListener)) return;
+            iStateListner.Remove(stateListener);
+        }
+
 
         public void ForceSwitch()
         {
