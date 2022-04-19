@@ -49,7 +49,7 @@ namespace SO.SMachine
         {
             if (!listeners.Contains(listener))
             {
-                Debug.Log("register: " + listener.source.gameObject.name + " on " + name);
+              //  Debug.Log("register: " + listener.source.gameObject.name + " on " + name);
                 listeners.Add(listener);
             }
         }
@@ -57,7 +57,7 @@ namespace SO.SMachine
         {
             if (listeners.Contains(listener))
             {
-                Debug.Log("unregister: " + listener.source.gameObject.name + " on " + name);
+              //  Debug.Log("unregister: " + listener.source.gameObject.name + " on " + name);
                 listeners.Remove(listener);
             }
         }
