@@ -65,15 +65,32 @@ namespace SO.SMachine
         internal void OnEnter()
         {
             isEntered = true;
+
             for (int i = 0; i < listeners.Count; i++)
             {
-                listeners[i].OnEnter.Invoke();
+                try
+                {
+                    listeners[i].OnEnter.Invoke();
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogException(ex);
+                }
+               
             }
             Z.InvokeEndOfFrame(() =>
             {
                 for (int i = 0; i < iStateListner.Count; i++)
                 {
-                    iStateListner[i].OnEnter(this);
+                    try
+                    {
+                        iStateListner[i].OnEnter(this);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.LogException(ex);
+                    }
+                    
                 }
             });
         }
@@ -83,11 +100,27 @@ namespace SO.SMachine
             if (!isEntered) return;
             for (int i = 0; i < listeners.Count; i++)
             {
-                listeners[i].OnExit.Invoke();
+                try
+                {
+                    listeners[i].OnExit.Invoke();
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogException(ex);
+                }
+                
             }
             for (int i = 0; i < iStateListner.Count; i++)
             {
-                iStateListner[i].OnExit(this);
+                try
+                {
+                    iStateListner[i].OnExit(this);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogException(ex);
+                }
+           
             }
         }
 
@@ -95,7 +128,15 @@ namespace SO.SMachine
         {
             for (int i = 0; i < listeners.Count; i++)
             {
-                listeners[i].OnPause.Invoke();
+                try
+                {
+                    listeners[i].OnPause.Invoke();
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogException(ex);
+                }
+               
             }
 
         }
@@ -104,7 +145,15 @@ namespace SO.SMachine
         {
             for (int i = 0; i < listeners.Count; i++)
             {
-                listeners[i].OnUnPause.Invoke();
+                try
+                {
+                    listeners[i].OnUnPause.Invoke();
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogException(ex);
+                }
+                
             }
         }
 
