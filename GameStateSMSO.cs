@@ -18,7 +18,9 @@ namespace SO.SMachine
                 {
                     SetValue((GameStateSMSO) parsedVal);
                 }
-                catch (Exception) { }
+                catch (Exception e) {
+                    Debug.LogException(e);
+                }
             }
         }
         public  void SetState(GameStateSM value)

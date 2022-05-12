@@ -24,27 +24,25 @@ namespace SO.SMachine
 
     public class GameStateListenerSM : MonoBehaviour
     {
-        static Dictionary<int, GameStateListenerSM> inistances = null;
+        //static Dictionary<int, GameStateListenerSM> inistances = null;
 
         [SerializeField] private UnityEvent Init;
         [SerializeField] private List<gameStateListener> StatesListeners = new List<gameStateListener>();
 
         private bool isInitialized;
 
-        GameStateListenerSM()
-        {
-            if (inistances == null) inistances = new Dictionary<int, GameStateListenerSM>();
-            try
-            {
-                if (Application.isPlaying)
-                    inistances.Add(this.GetInstanceID(), this);
-                else
-                    inistances = null;
-            }
-            catch (Exception)
-            {
-            }
-        }
+        //GameStateListenerSM()
+        //{
+        //    if (inistances == null) inistances = new Dictionary<int, GameStateListenerSM>();
+        //}
+
+        //private void Awake()
+        //{
+        //    if (Application.isPlaying)
+        //        inistances.Add(this.GetInstanceID(), this);
+        //    else
+        //        inistances = null;
+        //}
 
         private void OnEnable()
         {
