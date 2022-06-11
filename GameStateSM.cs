@@ -124,38 +124,38 @@ namespace SO.SMachine
             }
         }
 
-        internal void OnPause()
-        {
-            for (int i = 0; i < listeners.Count; i++)
-            {
-                try
-                {
-                    listeners[i].OnPause.Invoke();
-                }
-                catch (Exception ex)
-                {
-                    Debug.LogException(ex);
-                }
+        //internal void OnPause()
+        //{
+        //    for (int i = 0; i < listeners.Count; i++)
+        //    {
+        //        try
+        //        {
+        //            listeners[i].OnPause.Invoke();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Debug.LogException(ex);
+        //        }
                
-            }
+        //    }
 
-        }
+        //}
 
-        internal void OnUnPause()
-        {
-            for (int i = 0; i < listeners.Count; i++)
-            {
-                try
-                {
-                    listeners[i].OnUnPause.Invoke();
-                }
-                catch (Exception ex)
-                {
-                    Debug.LogException(ex);
-                }
+        //internal void OnUnPause()
+        //{
+        //    for (int i = 0; i < listeners.Count; i++)
+        //    {
+        //        try
+        //        {
+        //            listeners[i].OnUnPause.Invoke();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Debug.LogException(ex);
+        //        }
                 
-            }
-        }
+        //    }
+        //}
 
         public void Switch()
         {

@@ -10,17 +10,20 @@ namespace SO.SMachine
     //[CreateAssetMenu(fileName = "GameState", menuName = "SM/Machine")]
     public class StateMachineSM : MonoBehaviour
     {
-        public GameStateSMSO CurrentGameState;
-        public BoolSO IsGamePused;
-        public GameStateSM startState;
+        [SerializeField] GameStateSMSO CurrentGameState;
+        //[SerializeField] BoolSO IsGamePused;
+        [SerializeField] GameStateSM startState;
+        [SerializeField] UnityEvent onSwitchState;
+        
         private GameStateSM RuningGameState = null;
-        public UnityEvent onSwitchState;
-        private bool _IsGamePaused;
+        //private bool _IsGamePaused;
         private void Awake()
         {
+            CurrentGameState.Value = null;
+            RuningGameState = null;
             CurrentGameState.Subscripe(OnStateChange);
-            IsGamePused.Subscripe(OnGamePauseChange);
-            _IsGamePaused = IsGamePused.Value;
+            //IsGamePused.Subscripe(OnGamePauseChange);
+            //_IsGamePaused = IsGamePused.Value;
         }
 
         private void Start()
@@ -32,7 +35,7 @@ namespace SO.SMachine
         private void OnDestroy()
         {
             CurrentGameState.UnSubscripe(OnStateChange);
-            IsGamePused.UnSubscripe(OnGamePauseChange);
+            //IsGamePused.UnSubscripe(OnGamePauseChange);
         }
 
         private void OnStateChange(object sender, EventArgs e)
@@ -48,21 +51,20 @@ namespace SO.SMachine
                 });
             });
         }
-        private void OnGamePauseChange(object sender, EventArgs e)
-        {
-            if (_IsGamePaused != IsGamePused.Value)//check that Value is inverted
-            {
-                _IsGamePaused = IsGamePused.Value;
-                if (_IsGamePaused)
-                {
-                    RuningGameState.OnPause();
-                }
-                else
-                {
-                    RuningGameState.OnUnPause();
-                }
-            }
-
-        }
+        //private void OnGamePauseChange(object sender, EventArgs e)
+        //{
+        //    if (_IsGamePaused != IsGamePused.Value)//check that Value is inverted
+        //    {
+        //        _IsGamePaused = IsGamePused.Value;
+        //        if (_IsGamePaused)
+        //        {
+        //            RuningGameState.OnPause();
+        //        }
+        //        else
+        //        {
+        //            RuningGameState.OnUnPause();
+        //        }
+        //    }
+        //}
     }
 }

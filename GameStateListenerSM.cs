@@ -13,8 +13,8 @@ namespace SO.SMachine
         [Tooltip("must be enabled at first")]
         public bool listenWhenDisabled;
         public UnityEvent OnEnter;
-        public UnityEvent OnPause;
-        public UnityEvent OnUnPause;
+        //public UnityEvent OnPause;
+        //public UnityEvent OnUnPause;
         public UnityEvent OnExit;
         [TextArea]
         [Tooltip("What does this object do in this GameState")]
