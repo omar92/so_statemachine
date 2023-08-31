@@ -36,6 +36,7 @@ namespace SO.SMachine
 
         private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
         {
+            if(arg1==LoadSceneMode.Additive) return;
             listeners = new List<gameStateListener>();
             iStateListner = new List<IStateListener>();
             isEntered = false;
